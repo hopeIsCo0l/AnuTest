@@ -1,0 +1,398 @@
+================================================================================
+                    ANUINV - CANDY FACTORY INVENTORY SYSTEM
+                            USER MANUAL
+================================================================================
+
+OVERVIEW
+--------
+AnuInv is a comprehensive inventory management system designed specifically for 
+candy factory operations. It helps you track raw materials, manage production 
+batches, monitor stock levels, and get AI-powered insights about your factory 
+operations.
+
+The application runs locally on your computer at http://127.0.0.1:3000 (localhost).
+
+================================================================================
+                            MAIN FEATURES
+================================================================================
+
+1. DASHBOARD
+   ----------
+   The Dashboard provides a real-time overview of your factory operations:
+   
+   - Low Stock Alerts: Shows count of items below minimum threshold
+   - Estimated Inventory Value: Total value of all raw materials and finished goods
+   - Production Runs: Total number of completed production batches
+   - Active Products: Number of different candy varieties in inventory
+   
+   Visual Features:
+   - Bar chart comparing current stock vs. minimum stock levels for all products
+   - Critical Low Stock list showing items that need immediate attention
+   
+   Purpose: Quick health check of your factory at a glance.
+
+2. INVENTORY MANAGEMENT
+   ---------------------
+   Complete inventory tracking system for both raw materials and finished products.
+   
+   Features:
+   - View all items in a searchable, filterable table
+   - Filter by category: All Items, Raw Materials, or Finished Goods
+   - Search functionality to quickly find specific items
+   - Stock status indicators (Healthy/Low Stock)
+   - Restock functionality to add inventory
+   
+   Item Information Displayed:
+   - Item Name
+   - Category (Raw Material or Product)
+   - Current Quantity
+   - Unit of Measurement (kg, units, L)
+   - Stock Status (Healthy/Low Stock based on minimum threshold)
+   
+   Restocking:
+   - Click the "+" button next to any item
+   - Enter the quantity to add
+   - Confirm to update inventory
+   - Transaction is automatically recorded
+   
+   Default Inventory Items:
+   
+   Raw Materials:
+   - Sugar (kg)
+   - Glucose (Liters)
+   - Candy Sticks (units)
+   - Karton Box (units)
+   - Plastic Bag (units)
+   - Plastic Bottle (units)
+   - Container (units)
+   
+   Finished Products:
+   - (Type 1) - Gummy Bears
+   - (Type 2) - Lollipops
+   - (Type 3) - Soda Pops
+   - (Type 4) - Hard Candy
+   - (Type 5) - Super Sour
+
+3. PRODUCTION MANAGEMENT
+   ----------------------
+   Complete production workflow system for creating candy batches.
+   
+   Three-Step Process:
+   
+   STEP 1: SELECT PRODUCT
+   - Choose from available candy products
+   - See current stock level for each product
+   - Visual selection with highlighted active product
+   
+   STEP 2: CONFIGURE BATCH
+   - Set batch size using slider (5-200 units)
+   - View real-time cost analysis:
+     * Total raw materials cost for the batch
+     * Estimated cost per unit
+   - See workflow information:
+     * Estimated processing time (minutes)
+     * Ingredients availability check
+   - Required ingredients list showing:
+     * Each ingredient name
+     * Quantity needed vs. available
+     * Cost breakdown per ingredient
+     * Visual indicators (green checkmark = enough, red X = insufficient)
+   
+   STEP 3: PRODUCTION SLOTS
+   - Maximum of 3 concurrent production batches
+   - Visual production slots showing:
+     * Active batches with product name
+     * Batch ID and quantity
+     * Processing status with animated progress
+     * Estimated cost
+     * "Finish" button to complete production
+   
+   Production Workflow:
+   1. Select a product to produce
+   2. Adjust batch quantity
+   3. Review cost and ingredient availability
+   4. Click "Start Production" (only enabled if all ingredients available)
+   5. Raw materials are automatically deducted from inventory
+   6. Batch appears in production slot
+   7. Click "Finish" when production is complete
+   8. Finished products are automatically added to inventory
+   
+   Recipe System:
+   Each product has a predefined recipe specifying:
+   - Required raw materials
+   - Quantity needed per unit
+   - Processing time
+   
+   Example Recipes:
+   - Type 1: Sugar (0.5kg) + Glucose (0.2L) + Plastic Bag (1 unit) - 45 min
+   - Type 2: Sugar (0.3kg) + Glucose (0.1L) + Sticks (10) + Bag (1) - 30 min
+   - Type 3: Sugar (0.2kg) + Plastic Bottle (1) - 60 min
+   - Type 4: Sugar (1.0kg) + Karton Box (1) - 90 min
+   - Type 5: Sugar (0.8kg) + Glucose (0.5L) + Container (1) - 120 min
+
+4. TRANSACTION HISTORY
+   --------------------
+   Complete audit trail of all factory activities.
+   
+   Displays:
+   - All restocking operations
+   - Production batch starts
+   - Production batch completions
+   - Timestamps for each transaction
+   - Batch IDs for production activities
+   - Estimated costs for completed batches
+   
+   Transaction Types:
+   - RESTOCK: Adding inventory to raw materials or products
+   - PRODUCTION_START: Beginning a new production batch
+   - PRODUCTION_FINISH: Completing a production batch
+   
+   Features:
+   - Chronological list (newest first)
+   - Color-coded transaction types
+   - Batch reference numbers
+   - Cost information where applicable
+   - Time stamps for each activity
+
+5. AI ASSISTANT
+   -------------
+   AI-powered insights and chat assistant powered by Google Gemini AI.
+   
+   Factory Insights Panel:
+   - Click "Refresh Analysis" to generate AI report
+   - Provides 3-point executive summary:
+     1. Critical low stock items identification
+     2. Production focus suggestions based on available materials
+     3. Supply chain risks and anomalies
+   - Professional analysis tailored to candy factory operations
+   
+   Chat Assistant:
+   - Ask questions about your inventory
+   - Get help with factory operations
+   - Context-aware responses based on current inventory data
+   - Chat history maintained during session
+   
+   Requirements:
+   - Requires GEMINI_API_KEY environment variable
+   - Set in .env.local file before use
+   - Without API key, AI features will be disabled
+
+================================================================================
+                            NAVIGATION
+================================================================================
+
+The application uses a sidebar navigation system with 5 main sections:
+
+1. Dashboard (Home icon)
+   - Factory overview and statistics
+
+2. Inventory (Package icon)
+   - Inventory management and restocking
+
+3. Production (Factory icon)
+   - Production batch management
+
+4. History (Clock icon)
+   - Transaction history and audit trail
+
+5. AI Insights (Sparkles icon)
+   - AI-powered analysis and chat
+
+Click any menu item to switch views. The active section is highlighted.
+
+================================================================================
+                            KEY CONCEPTS
+================================================================================
+
+RAW MATERIALS vs. PRODUCTS
+---------------------------
+- Raw Materials: Ingredients and packaging used to make candy (e.g., Sugar, 
+  Glucose, Plastic Bags)
+- Products: Finished candy items ready for sale (e.g., Type 1, Type 2)
+
+MINIMUM STOCK LEVELS
+--------------------
+Each item has a minimum stock threshold. When quantity falls at or below this 
+level, the item is marked as "Low Stock" and appears in alerts.
+
+PRODUCTION BATCHES
+------------------
+- Maximum 3 batches can run simultaneously
+- Each batch consumes raw materials when started
+- Finished products are added to inventory when batch is completed
+- Each batch has a unique ID for tracking
+
+COST TRACKING
+-------------
+- Raw materials have a cost per unit
+- Production batches calculate total cost based on ingredients used
+- Cost per unit is calculated for each batch
+- Costs are tracked in transaction history
+
+TRANSACTIONS
+------------
+Every action (restock, production start/finish) creates a transaction record 
+with timestamp, type, and details. This provides a complete audit trail.
+
+================================================================================
+                            WORKFLOW EXAMPLES
+================================================================================
+
+EXAMPLE 1: RESTOCKING RAW MATERIALS
+------------------------------------
+1. Navigate to Inventory section
+2. Find the item you want to restock (e.g., "Sugar")
+3. Click the "+" button next to the item
+4. Enter quantity to add (e.g., 100)
+5. Click "Confirm Restock"
+6. Inventory is updated and transaction is recorded
+
+EXAMPLE 2: PRODUCING CANDY
+---------------------------
+1. Navigate to Production section
+2. Select a product (e.g., "Type 1")
+3. Adjust batch size slider (e.g., 50 units)
+4. Review cost analysis and ingredient availability
+5. Ensure all ingredients show green checkmarks
+6. Click "Start Production"
+7. Raw materials are deducted automatically
+8. Batch appears in production slot
+9. When ready, click "Finish" on the batch
+10. Finished products are added to inventory
+
+EXAMPLE 3: CHECKING FACTORY STATUS
+-----------------------------------
+1. Navigate to Dashboard
+2. Review key metrics:
+   - Low stock alerts count
+   - Total inventory value
+   - Production runs completed
+3. Check bar chart for product stock levels
+4. Review critical low stock list
+5. Navigate to Inventory to restock if needed
+
+EXAMPLE 4: USING AI ASSISTANT
+------------------------------
+1. Navigate to AI Insights section
+2. Click "Refresh Analysis" for automated insights
+3. Review the 3-point summary
+4. Use chat panel to ask questions:
+   - "What should I produce next?"
+   - "Which items are running low?"
+   - "What's my inventory value?"
+5. Get context-aware responses based on current data
+
+================================================================================
+                            TECHNICAL DETAILS
+================================================================================
+
+TECHNOLOGY STACK
+----------------
+- Frontend: React 19 with TypeScript
+- Build Tool: Vite 6
+- UI Framework: Tailwind CSS
+- Charts: Recharts library
+- Icons: Lucide React
+- AI: Google Gemini AI (gemini-2.5-flash model)
+
+DATA STORAGE
+------------
+- All data is stored in browser memory (state)
+- Data persists during session but resets on page refresh
+- No backend database required
+
+ENVIRONMENT VARIABLES
+---------------------
+- GEMINI_API_KEY: Required for AI features
+- Set in .env.local file in project root
+
+RUNNING THE APPLICATION
+-----------------------
+1. Install dependencies: npm install
+2. Set GEMINI_API_KEY in .env.local (optional for AI features)
+3. Start dev server: npm run dev
+4. Access at http://127.0.0.1:3000 or http://localhost:3000
+
+DEFAULT CONFIGURATION
+---------------------
+- Server Port: 3000
+- Server Host: 0.0.0.0 (accessible on all network interfaces)
+- Maximum Production Slots: 3
+- Initial inventory loaded from constants.ts
+
+================================================================================
+                            TIPS & BEST PRACTICES
+================================================================================
+
+1. REGULAR MONITORING
+   - Check Dashboard daily for low stock alerts
+   - Review transaction history regularly
+   - Monitor production slot utilization
+
+2. PRODUCTION PLANNING
+   - Check ingredient availability before starting batches
+   - Review cost analysis to optimize profitability
+   - Plan batch sizes based on demand
+
+3. INVENTORY MANAGEMENT
+   - Set appropriate minimum stock levels
+   - Restock raw materials proactively
+   - Keep finished goods at optimal levels
+
+4. AI INSIGHTS
+   - Refresh analysis regularly for updated recommendations
+   - Use chat assistant for quick questions
+   - Review AI suggestions for production planning
+
+5. TRANSACTION TRACKING
+   - Review transaction history to understand factory activity
+   - Use batch IDs to track specific production runs
+   - Monitor costs to optimize operations
+
+================================================================================
+                            TROUBLESHOOTING
+================================================================================
+
+ISSUE: Cannot start production
+SOLUTION: Check that all required ingredients are available in sufficient 
+          quantities. Ensure production slots are not full (max 3).
+
+ISSUE: AI features not working
+SOLUTION: Verify GEMINI_API_KEY is set in .env.local file. Check browser 
+          console for API errors.
+
+ISSUE: Low stock alerts not showing
+SOLUTION: Verify item quantity is at or below minimum stock threshold. Check 
+          Dashboard for alerts.
+
+ISSUE: Cannot restock
+SOLUTION: Ensure you enter a positive number in the restock modal. Check that 
+          the modal is properly displayed.
+
+ISSUE: Production batch not finishing
+SOLUTION: Click the "Finish" button on the production slot. Ensure the batch 
+          is in PROCESSING status.
+
+================================================================================
+                            SUPPORT & CONTACT
+================================================================================
+
+For issues or questions:
+- Check the README.md file
+- Review transaction history for activity logs
+- Use AI Assistant for operational questions
+- Check browser console for technical errors
+
+================================================================================
+                            VERSION INFORMATION
+================================================================================
+
+Application: AnuInv (Copy of AnuInv)
+Version: 0.0.0
+Framework: React 19.2.0
+Build Tool: Vite 6.2.0
+
+================================================================================
+                            END OF MANUAL
+================================================================================
+
