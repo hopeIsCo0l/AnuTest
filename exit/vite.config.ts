@@ -8,6 +8,15 @@ export default defineConfig(({ mode }) => {
       server: {
         port: 5173,
       },
+      preview: {
+        port: Number(process.env.PORT) || 5173,
+        host: '0.0.0.0',
+        allowedHosts: [
+          'exit-production-6200.up.railway.app',
+          '.railway.app',
+          '.up.railway.app'
+        ]
+      },
       plugins: [react()],
       define: {
         'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
