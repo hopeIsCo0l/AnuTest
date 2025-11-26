@@ -1,8 +1,8 @@
 {
-  "buildCommand": "cd exit && npm install && npm run build",
-  "outputDirectory": "exit/dist",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "framework": "vite",
-  "installCommand": "cd exit && npm install",
+  "installCommand": "npm install",
   "rewrites": [
     {
       "source": "/(.*)",
