@@ -16,6 +16,9 @@ export const generateExamQuestions = async (config: ExamConfig): Promise<Questio
   `;
 
   try {
+    if (!ai) {
+      throw new Error("API key not configured");
+    }
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: prompt,
