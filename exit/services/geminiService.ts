@@ -1,7 +1,8 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Question, ExamConfig } from '../types';
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const apiKey = (process.env.API_KEY || process.env.GEMINI_API_KEY || '') as string;
+const ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
 
 export const generateExamQuestions = async (config: ExamConfig): Promise<Question[]> => {
   const prompt = `
@@ -64,6 +65,9 @@ export const generateExamQuestions = async (config: ExamConfig): Promise<Questio
 
 export const getPersonalizedStudyTip = async (score: number, department: string): Promise<string> => {
   try {
+    if (!ai) {
+      return "Consistency is key. Review your weak areas and try again!";
+    }
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: `Give a short, encouraging, and specific study tip for a ${department} student who just scored ${score}% on a practice exit exam. Keep it under 50 words.`,
