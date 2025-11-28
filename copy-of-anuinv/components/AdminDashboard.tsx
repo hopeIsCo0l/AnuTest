@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { InventoryItem, ItemCategory, Recipe, Unit } from '../types';
-import { Save, RotateCcw, Trash2, ShieldCheck, DollarSign, Users, MoreHorizontal, Package, Edit, Plus, X, ChevronsRight } from 'lucide-react';
+import { Save, RotateCcw, Trash2, ShieldCheck, DollarSign, Users, MoreHorizontal, Package, Edit, Plus, X, ChevronsRight, AlertTriangle } from 'lucide-react';
 
 interface AdminDashboardProps {
   inventory: InventoryItem[];
@@ -430,33 +430,44 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                              </div>
 
                              <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                                 <h5 className="text-sm font-bold text-gray-700 mb-3">Ingredients per 1 Unit</h5>
-                                 <div className="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+                                 <h5 className="text-sm font-bold text-gray-700 mb-3 flex justify-between items-center">
+                                     <span>Ingredients Configuration</span>
+                                     <span className="text-xs font-normal text-gray-500">Select raw materials needed</span>
+                                 </h5>
+                                 <div className="space-y-2 max-h-64 overflow-y-auto pr-2 custom-scrollbar">
                                      {rawMaterials.map(rm => {
                                          const ing = editingRecipe.ingredients.find(i => i.rawMaterialId === rm.id);
                                          const isSelected = !!ing;
                                          return (
                                              <div key={rm.id} className={`flex items-center justify-between p-3 rounded-lg border transition-all ${isSelected ? 'bg-white border-candy-200 shadow-sm' : 'border-transparent hover:bg-gray-100'}`}>
-                                                 <div className="flex items-center gap-3">
+                                                 <div className="flex items-center gap-3 flex-1">
                                                      <input 
                                                         type="checkbox"
                                                         checked={isSelected}
                                                         onChange={() => toggleIngredient(rm.id)}
-                                                        className="w-4 h-4 text-candy-600 rounded focus:ring-candy-500"
+                                                        className="w-5 h-5 text-candy-600 rounded focus:ring-candy-500 cursor-pointer"
                                                      />
-                                                     <span className={`text-sm ${isSelected ? 'font-bold text-gray-800' : 'text-gray-500'}`}>{rm.name}</span>
+                                                     <div>
+                                                         <span className={`text-sm block ${isSelected ? 'font-bold text-gray-800' : 'text-gray-500'}`}>{rm.name}</span>
+                                                         <span className="text-xs text-gray-400">In Stock: {rm.quantity} {rm.unit}</span>
+                                                     </div>
                                                  </div>
                                                  {isSelected && (
                                                      <div className="flex items-center gap-2">
-                                                         <input 
-                                                            type="number"
-                                                            step="0.01"
-                                                            min="0.01"
-                                                            value={ing.quantity}
-                                                            onChange={(e) => updateIngredientQty(rm.id, parseFloat(e.target.value))}
-                                                            className="w-20 px-2 py-1 text-right border border-gray-200 rounded text-sm font-mono focus:ring-1 focus:ring-candy-500"
-                                                         />
-                                                         <span className="text-xs text-gray-400 w-8">{rm.unit}</span>
+                                                         <label className="text-xs font-bold text-gray-500 uppercase mr-1">Qty:</label>
+                                                         <div className="relative">
+                                                            <input 
+                                                                type="number"
+                                                                step="0.001"
+                                                                min="0.001"
+                                                                value={ing.quantity}
+                                                                onChange={(e) => updateIngredientQty(rm.id, parseFloat(e.target.value))}
+                                                                className="w-24 px-3 py-1.5 text-right border border-gray-200 rounded-lg text-sm font-mono focus:ring-2 focus:ring-candy-500 focus:outline-none"
+                                                            />
+                                                         </div>
+                                                         <span className="text-xs font-bold text-gray-500 bg-gray-100 px-2 py-1.5 rounded-md min-w-[2.5rem] text-center">
+                                                             {rm.unit}
+                                                         </span>
                                                      </div>
                                                  )}
                                              </div>
