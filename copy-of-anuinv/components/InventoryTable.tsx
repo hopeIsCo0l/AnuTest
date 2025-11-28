@@ -277,7 +277,7 @@ export const InventoryTable: React.FC<InventoryTableProps> = ({ inventory, onRes
                                 required
                                 value={newItem.name}
                                 onChange={(e) => setNewItem({...newItem, name: e.target.value})}
-                                placeholder={newItem.category === ItemCategory.PRODUCT ? "e.g. Super Sour Bears" : "e.g. Corn Syrup"}
+                                placeholder={newItem.category === ItemCategory.PRODUCT ? "e.g. AnuPop" : "e.g. Hilwit"}
                                 className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-candy-500 focus:border-transparent bg-gray-50 focus:bg-white transition-all"
                            />
                        </div>
